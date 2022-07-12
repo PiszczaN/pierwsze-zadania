@@ -1,5 +1,7 @@
-//import { v4 as uuidv4 } from 'uuid';
 'use strict';
+
+//import function from uuid library, import is available due using parcel bundler
+import { v4 as uuidv4 } from 'uuid';
 
 const arrayOfPeople = [];
 
@@ -16,7 +18,7 @@ const generateHuman = function () {
         age: generateRandomNumber(18, 85),
         phoneNumber: generateRandomNumber(100000000, 999999999),
         country: "test",
-        id: generateRandomNumber(1, 99),
+        id: uuidv4(),
 
         email: function () {
             //the method after the first execution will overwrite its field with an automatically generated email address
