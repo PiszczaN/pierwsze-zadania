@@ -4,6 +4,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const arrayOfPeople = [];
+let namesAndSurnames = [];
 
 /////////////////////////////////////
 //////// MAIN FUNCTION //////////////
@@ -35,6 +36,32 @@ const generateHuman = function () {
 }
 
 /////////////////////////////////////
+////////// FETCH API ////////////////
+/////////////////////////////////////
+
+// Fetch 10 users from API JSONplaceholder 
+
+fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`Http error: ${res.status}`);
+        }
+    })
+    .then(res => {
+
+        namesAndSurnames = res.map(user => {
+            const { name = "name surname" } = user;
+            return name;
+        })
+
+
+    }).catch(error => {
+        console.error(error)
+    });
+
+/////////////////////////////////////
 ////////// FUNCTIONS ////////////////
 /////////////////////////////////////
 
@@ -47,17 +74,15 @@ const generateRandomNumber = function (min, max) {
 
 
 
-
 /////////////////////////////////////
 //////////// TESTS //////////////////
 /////////////////////////////////////
 
 // checking if the generateHuman() will add new objects to the arrayOfPeople[]
-
 generateHuman();
 generateHuman();
 generateHuman();
-console.log(arrayOfPeople);
+//console.log(arrayOfPeople);
 
 
 console.log(generateHuman());
