@@ -13,7 +13,7 @@ function includes(array, elementToFind, fromIndex = 0) {
         const currentElement = array[i];
 
         if (i < 0)
-            i = arrayLength + i;
+            i = arrayLength + i - 1;
 
         if (typeof (array) === typeof (['array']) && (currentElement === elementToFind || (currentElement !== currentElement && elementToFind !== elementToFind)))
             return true;
@@ -39,5 +39,5 @@ const tab = [1, 2, 3, 'world', 6, NaN, 3];
 const sent = 'hello world'
 const word = 'world';
 
-console.log(sent.includes('hello world'));
-console.log(includes(sent, word));
+console.log(sent.includes('w', 7));
+console.log(includes(sent, 'w', 7));
