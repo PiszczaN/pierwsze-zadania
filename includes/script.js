@@ -55,6 +55,52 @@ function includes(array, elementToFind, fromIndex = 0) {
     return false;
 }
 
+/////////////////////////////////////
+//////// CODE REVIEW ////////////////
+/////////////////////////////////////
+/*
+for (let i = startFrom; i < arrayLength; ++i) {
+    if (typeof array[i] !== "string") throw Error("TypeError")
+
+    const currentElement = array[i];
+
+
+    const isArray = Array.isArray(array)
+    const isExactSame = currentElement === elementToFind
+
+
+    const isNotString = typeof array !== "string"
+    const isNotElememtString = typeof elementToFind !== "string"
+
+    if (isNotString || isNotElememtString) {
+        return false
+    }
+
+    if (currentElement === elementToFind[stringChecker])
+        stringChecker++;
+    else
+        stringChecker = 0;
+
+    if (stringChecker === elementToFind.length)
+        return true;
+
+}
+*/
+////////////////////////////////////////////////
+
+
+function includes2(array, elementToFind, fromIndex = 0) {
+
+    let startFrom = fromIndex
+
+    if (startFrom < 0)
+        startFrom = arrayLength + startFrom;
+
+    for (let i = startFrom; i < arrayLength; i++) {
+        if (array[el] === elementToFind) return true
+    }
+    return false
+}
 
 /////////////////////////////////////
 //////////// TESTS //////////////////
