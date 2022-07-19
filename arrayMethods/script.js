@@ -1,5 +1,8 @@
 const forEachFn = (array, callback) => {
 
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+
     for (const [iterator, value] of array.entries()) {
         callback(value, iterator);
     }
@@ -27,7 +30,7 @@ const someFn = (array, callback) => { };
 
 const array = [1, 2, 'egse', 4, 5, 6];
 
-forEachFn([1, 2, 'egse', 4, 5, 6], (element, index) => {
+forEachFn(array, (element, index) => {
     element = element + 2;
     console.log(`Testing forEachFn: at index: ${index} there is element: ${element}`);
 })
