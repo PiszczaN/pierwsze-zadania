@@ -91,15 +91,21 @@ for (let i = startFrom; i < arrayLength; ++i) {
 
 function includes2(array, elementToFind, fromIndex = 0) {
 
-    let startFrom = fromIndex
+    const arrayCopy = array.slice(0);
 
-    if (startFrom < 0)
-        startFrom = arrayLength + startFrom;
+    const isArray = Array.isArray(arrayCopy);
+    const isNumber = Number.isInteger(fromIndex);
 
-    for (let i = startFrom; i < arrayLength; i++) {
-        if (array[el] === elementToFind) return true
+    if (!isArray || !isNumber)
+        throw Error("TypeError");
+
+    if (fromIndex < 0)
+        fromIndex = arrayCopy.length + fromIndex;
+
+    for (let i = fromIndex; i < arrayCopy.length; i++) {
+        if (array[i] === elementToFind) return true;
     }
-    return false
+    return false;
 }
 
 /////////////////////////////////////
@@ -110,5 +116,5 @@ const tab = [1, 2, 3, 'world', 6, NaN, 3];
 const sent = 'hello world'
 const word = 'world';
 
-console.log(sent.includes(' '));
-console.log(includes(sent, ' '));
+console.log(tab.includes(' '));
+console.log(includes2(tab, 2));
