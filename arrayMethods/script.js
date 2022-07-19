@@ -9,17 +9,59 @@ const forEachFn = (array, callback) => {
 
 };
 
-const mapFn = (array, callback) => { };
+const mapFn = (array, callback) => {
 
-const entriesFn = (array) => { };
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
 
-const filterFn = (array, callback) => { };
+    const arrayCopy = array.slice(0);
+    let resultArray = [];
 
-const reduceFn = (array, callback, inital) => { };
+    for (let index = 0; index < arrayCopy.length; ++index) {
+        const element = arrayCopy[index];
 
-const everyFn = (array, callback) => { };
+        const resultElement = callback(element, index, arrayCopy);
 
-const someFn = (array, callback) => { };
+        resultArray.push(resultElement);
+    }
+
+    return resultArray;
+};
+
+const entriesFn = (array) => {
+
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+
+};
+
+const filterFn = (array, callback) => {
+
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+
+    const arrayCopy = array.slice(0);
+};
+
+const reduceFn = (array, callback, inital) => {
+
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+
+    const arrayCopy = array.slice(0);
+};
+
+const everyFn = (array, callback) => {
+
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+};
+
+const someFn = (array, callback) => {
+
+    if (!Array.isArray(array))
+        throw Error(`TypeError: ${array}.forEach is not a function`);
+};
 
 
 
