@@ -48,7 +48,6 @@ const entriesFn = (array) => {
     const arrayCopy = array.slice(0);
     let resultArray = [];
 
-
     for (let index = 0; index < arrayCopy.length; ++index) {
         const entry = [index, arrayCopy[index]];
         resultArray.push(entry);
@@ -86,12 +85,23 @@ const filterFn = (array, callback) => {
 //////////// REDUCE /////////////////
 /////////////////////////////////////
 
-const reduceFn = (array, callback, inital) => {
+const reduceFn = (array, callback, initial = 0) => {
 
     if (!Array.isArray(array))
         throw Error(`TypeError: ${array}.forEach is not a function`);
 
     const arrayCopy = array.slice(0);
+    let accumulator = initial;
+
+    for (const [index, value] of entriesFn(arrayCopy)) {
+
+        if (value === undefined)
+            continue;
+
+        accumulator = callback(accumulator, value, index, arrayCopy);
+    }
+
+    return accumulator;
 };
 
 /////////////////////////////////////
@@ -125,10 +135,24 @@ const someFn = (array, callback) => {
 //////////// TESTS //////////////////
 /////////////////////////////////////
 
-const array = [1, 2, 'egse', 4, 5, 6];
+const array = [1, 2, 'egse', , 5, 6, null];
 
+// REDUCE
+
+const reduceFnTest = reduceFn(array, (acc, element, index) => {
+    return acc + element;
+})
+console.log(reduceFnTest);
+
+console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+const reduceTest = array.reduce((acc, element, index) => {
+    return acc + element;
+
+})
+console.log(reduceTest);
 // ENTRIES
-
+/*
 for (const [iterator, value] of entriesFn(array)) {
     console.log(`entriesFn: iterator: ${iterator} value: ${value}`);
 }
@@ -138,7 +162,7 @@ console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 for (const [iterator, value] of array.entries()) {
     console.log(`.entries(): iterator: ${iterator} value: ${value}`);
 }
-
+*/
 // MAP
 /*
 const testFilterFn = filterFn(array, element => element > 3);
