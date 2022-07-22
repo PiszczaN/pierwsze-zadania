@@ -1,3 +1,7 @@
+/////////////////////////////////////
+//////////// FOREACH ////////////////
+/////////////////////////////////////
+
 const forEachFn = (array, callback) => {
 
     if (!Array.isArray(array))
@@ -8,6 +12,10 @@ const forEachFn = (array, callback) => {
     }
 
 };
+
+/////////////////////////////////////
+//////////// MAP ////////////////////
+/////////////////////////////////////
 
 const mapFn = (array, callback) => {
 
@@ -28,12 +36,31 @@ const mapFn = (array, callback) => {
     return resultArray;
 };
 
+/////////////////////////////////////
+//////////// ENTRIES ////////////////
+/////////////////////////////////////
+
 const entriesFn = (array) => {
 
     if (!Array.isArray(array))
         throw Error(`TypeError: ${array}.forEach is not a function`);
 
+    const arrayCopy = array.slice(0);
+    let resultArray = [];
+
+
+    for (let index = 0; index < arrayCopy.length; ++index) {
+        const entry = [index, arrayCopy[index]];
+        resultArray.push(entry);
+    }
+
+    return resultArray[Symbol.iterator]();
+
 };
+
+/////////////////////////////////////
+//////////// FILTER /////////////////
+/////////////////////////////////////
 
 const filterFn = (array, callback) => {
 
@@ -55,6 +82,10 @@ const filterFn = (array, callback) => {
     return resultArray;
 };
 
+/////////////////////////////////////
+//////////// REDUCE /////////////////
+/////////////////////////////////////
+
 const reduceFn = (array, callback, inital) => {
 
     if (!Array.isArray(array))
@@ -63,11 +94,19 @@ const reduceFn = (array, callback, inital) => {
     const arrayCopy = array.slice(0);
 };
 
+/////////////////////////////////////
+//////////// EVERY //////////////////
+/////////////////////////////////////
+
 const everyFn = (array, callback) => {
 
     if (!Array.isArray(array))
         throw Error(`TypeError: ${array}.forEach is not a function`);
 };
+
+/////////////////////////////////////
+//////////// SOME ///////////////////
+/////////////////////////////////////
 
 const someFn = (array, callback) => {
 
@@ -77,6 +116,10 @@ const someFn = (array, callback) => {
 
 
 
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+
 
 /////////////////////////////////////
 //////////// TESTS //////////////////
@@ -84,8 +127,20 @@ const someFn = (array, callback) => {
 
 const array = [1, 2, 'egse', 4, 5, 6];
 
-// MAP
+// ENTRIES
 
+for (const [iterator, value] of entriesFn(array)) {
+    console.log(`entriesFn: iterator: ${iterator} value: ${value}`);
+}
+
+console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+for (const [iterator, value] of array.entries()) {
+    console.log(`.entries(): iterator: ${iterator} value: ${value}`);
+}
+
+// MAP
+/*
 const testFilterFn = filterFn(array, element => element > 3);
 console.log(testFilterFn);
 
@@ -93,7 +148,7 @@ console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 const testFilter = array.filter(element => element > 3);
 console.log(testFilter);
-
+*/
 // MAP
 /*
 const testMapFn = mapFn(array, element => element = element + 2);
