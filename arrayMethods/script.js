@@ -163,10 +163,30 @@ const everyFn = (array, callback, thisArg = null) => {
 //////////// SOME ///////////////////
 /////////////////////////////////////
 
-const someFn = (array, callback) => {
+const someFn = (array, callback, thisArg = null) => {
 
     if (!Array.isArray(array))
         throw Error(`TypeError: ${array}.someFn is not a function`);
+
+    const arrayCopy = array.slice(0);
+    let finalResult = false;
+
+    for (let index = 0; index < arrayCopy.length; ++index) {
+        const currentValue = arrayCopy[index];
+
+        if (currentValue === undefined)
+            continue;
+
+        let result = callback.call(thisArg, currentValue, index, arrayCopy);
+
+        if (result) {
+            finalResult = true;
+            break;
+        }
+
+    }
+
+    return finalResult;
 };
 
 
@@ -187,12 +207,32 @@ const array0 = [];
 //console.log(`TEST: ${array[3]} ( ${typeof (array[3])} ) vs ${array[4]} ( ${typeof (array[4])} ) is:  ${array[3] === array[4]}`);
 //console.log(`INDEX OF UNDEFINED : ${array.indexOf(undefined)}`);
 
+// SOME
+/*
+const someFnTest = someFn(array, function (currentValue, index) {
+    //console.log(this);
+
+    return currentValue < 7;
+}, 2)
+console.log(someFnTest);
+
+console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+
+const someTest = array.some(function (currentValue, index) {
+    //console.log(this);
+    return currentValue < 7;
+}, 2)
+console.log(someTest);
+*/
 // EVERY
+/*
+console.log("|||||||||||||||||||||||||||||||SOME||||||||||||||||||||||||||||||||\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n|||||||||||||||||||||||||||||||EVERY|||||||||||||||||||||||||||||||");
 
 const everyFnTest = everyFn(array, function (currentValue, index) {
-    console.log(this);
+    //console.log(this);
 
-    return 1 > 0;
+    return currentValue < 7;
 }, 2)
 console.log(everyFnTest);
 
@@ -200,11 +240,11 @@ console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
 const everyTest = array.every(function (currentValue, index) {
-    console.log(this);
-    return 1 > 0;
+    //console.log(this);
+    return currentValue < 7;
 }, 2)
 console.log(everyTest);
-
+*/
 // REDUCE
 /*
 const reduceFnTest = reduceFn(array1, (acc, element, index) => {
