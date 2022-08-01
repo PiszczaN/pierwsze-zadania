@@ -133,10 +133,30 @@ const reduceFn = function (array, callback, initial) {
 //////////// EVERY //////////////////
 /////////////////////////////////////
 
-const everyFn = (array, callback) => {
+const everyFn = (array, callback, thisArg = null) => {
 
     if (!Array.isArray(array))
         throw Error(`TypeError: ${array}.everyFn is not a function`);
+
+    const arrayCopy = array.slice(0);
+    let finalResult = true;
+
+    for (let index = 0; index < arrayCopy.length; ++index) {
+        const currentValue = arrayCopy[index];
+
+        if (currentValue === undefined)
+            continue;
+
+        let result = callback.call(thisArg, currentValue, index, arrayCopy);
+
+        if (!result) {
+            finalResult = false;
+            break;
+        }
+
+    }
+
+    return finalResult;
 };
 
 /////////////////////////////////////
@@ -167,6 +187,23 @@ const array0 = [];
 //console.log(`TEST: ${array[3]} ( ${typeof (array[3])} ) vs ${array[4]} ( ${typeof (array[4])} ) is:  ${array[3] === array[4]}`);
 //console.log(`INDEX OF UNDEFINED : ${array.indexOf(undefined)}`);
 
+// EVERY
+
+const everyFnTest = everyFn(array, function (currentValue, index) {
+    console.log(this);
+
+    return 1 > 0;
+}, 2)
+console.log(everyFnTest);
+
+console.log("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+
+const everyTest = array.every(function (currentValue, index) {
+    console.log(this);
+    return 1 > 0;
+}, 2)
+console.log(everyTest);
 
 // REDUCE
 /*
